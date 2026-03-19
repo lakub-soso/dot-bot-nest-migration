@@ -39,7 +39,7 @@ export class GambaCommand extends Command {
     );
 
     if (user.getWealth() < 0) {
-      await this._twitchClient.say(
+      await this.twitchClient.say(
         twitchContext.room.channel,
         `@${twitchContext.user.name}, bruv you trying to bet with a negative balance? lmao broke`,
       );
@@ -58,7 +58,7 @@ export class GambaCommand extends Command {
 
     await this._userRepository.save(user);
 
-    await this._twitchClient.say(
+    await this.twitchClient.say(
       twitchContext.room.channel,
       `@${twitchContext.user.name} you bet ${points} points and ${
         isWin ? 'won!' : 'lost lmao gottem KEKW'

@@ -19,7 +19,7 @@ export class FrogCommand extends Command {
     const username = twitchContext.user.name;
     const response = (this.responses[username] || this.responses.default)();
 
-    await this._twitchClient.say(
+    await this.twitchClient.say(
       twitchContext.room.channel,
       `${username}, ${response}`,
     );

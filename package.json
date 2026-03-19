@@ -20,6 +20,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^20.4.5",
     "@types/tmi.js": "^1.8.3",
     "@types/uuid": "^9.0.2",
@@ -33,6 +34,8 @@
   },
   "dependencies": {
     "dotenv": "^16.3.1",
+    "express": "^5.2.1",
+    "open": "^11.0.0",
     "pg": "^8.11.2",
     "reflect-metadata": "^0.2.2",
     "tmi.js": "^1.8.5",

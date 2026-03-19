@@ -37,7 +37,7 @@ export class LoveCommand extends Command {
 
     await this._loveAssignmentRepository.save(assignment);
 
-    await this._twitchClient.say(
+    await this.twitchClient.say(
       twitchContext.room.channel,
       `@${twitchContext.user.name}, there is ${assignment.value}% love dotane1Heart between you and ${targetArg}!`,
     );

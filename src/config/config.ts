@@ -22,6 +22,17 @@ export class Config {
       },
       username: this.getEnvironmental<string>(ConfigKey.TWITCH_USERNAME),
       token: this.getEnvironmental<string>(ConfigKey.TWITCH_TOKEN),
+      oauth: {
+        clientId: this.getEnvironmental<string>(
+          ConfigKey.TWITCH__OAUTH_CLIENT_ID,
+        ),
+        clientSecret: this.getEnvironmental<string>(
+          ConfigKey.TWITCH__OAUTH_CLIENT_SECRET,
+        ),
+        redirectUri: this.getEnvironmental<string>(
+          ConfigKey.TWITCH__OAUTH_REDIRECT_URI,
+        ),
+      },
     };
 
     this.database = {

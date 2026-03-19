@@ -61,7 +61,7 @@ export class PointsCommand extends Command {
       twitchContext.user.name,
     );
 
-    await this._twitchClient.say(
+    await this.twitchClient.say(
       twitchContext.room.channel,
       `@${twitchContext.user.name}, you have ${user.wealth.value} points.`,
     );
@@ -89,7 +89,7 @@ export class PointsCommand extends Command {
 
     await this._userRepository.save(user);
 
-    await this._twitchClient.say(
+    await this.twitchClient.say(
       twitchContext.room.channel,
       `Set ${user.name} points to ${pointsArg}`,
     );
@@ -117,7 +117,7 @@ export class PointsCommand extends Command {
 
     await this._userRepository.save(user);
 
-    await this._twitchClient.say(
+    await this.twitchClient.say(
       twitchContext.room.channel,
       `Increased ${user.name} points to ${user.getWealth()}`,
     );
@@ -145,7 +145,7 @@ export class PointsCommand extends Command {
 
     await this._userRepository.save(user);
 
-    await this._twitchClient.say(
+    await this.twitchClient.say(
       twitchContext.room.channel,
       `Reduced ${user.name} points to ${user.getWealth()}`,
     );

@@ -16,7 +16,7 @@ export class BanCommand extends Command {
       target = twitchContext.user.name;
     }
 
-    await this._twitchClient.say(
+    await this.twitchClient.say(
       twitchContext.room.channel,
       `${target} is now banned`,
     );

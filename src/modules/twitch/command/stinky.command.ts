@@ -10,7 +10,7 @@ export class StinkyCommand extends Command {
     chatCommand: ChatCommand,
     twitchContext: TwitchContext,
   ): Promise<void> {
-    await this._twitchClient.say(
+    await this.twitchClient.say(
       twitchContext.room.channel,
       `Oh look, it's Toll - the ultra stinker that stinks`,
     );

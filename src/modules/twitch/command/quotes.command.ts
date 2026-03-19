@@ -20,7 +20,7 @@ export class QuotesCommand extends Command {
   ): Promise<void> {
     const quotesCount = await this._quoteRepository.count();
 
-    await this._twitchClient.say(
+    await this.twitchClient.say(
       twitchContext.room.channel,
       `There are currently ${quotesCount} quotes saved.`,
     );

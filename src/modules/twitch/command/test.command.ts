@@ -10,6 +10,6 @@ export class TestCommand extends Command {
     chatTarget: ChatCommand,
     twitchContext: TwitchContext,
   ): Promise<void> {
-    await this._twitchClient.say(twitchContext.room.channel, 'Hello world!');
+    await this.twitchClient.say(twitchContext.room.channel, 'Hello world!');
   }
 }

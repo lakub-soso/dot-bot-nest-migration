@@ -7,14 +7,16 @@ import {
 import { IModule } from '../../core/common/interface/module.interface';
 import { DependencyProvider } from '../../core/dependency/dependency-provider';
 import { USER_SERVICE, UserService } from './services/user.service';
-import { TWITCH_CLIENT } from './const/twitch-client.key';
-import { TwitchClientFactory } from './factory/twitch-client.factory';
-import { Config } from '../../config/config';
 import { COMMAND_PROVIDER, CommandProvider } from './provider/command.provider';
 import {
   PP_RESPONSE_SERVICE,
   PPResponseService,
 } from './services/pp-response.service';
+import {
+  TWITCH_CONTROLLER,
+  TwitchController,
+} from './controllers/twitch.controller';
+import { TWITCH_AUTH_SERVICE, TwitchAuthService } from './services/twitch-auth.service';
 
 export class TwitchModule implements IModule {
   readonly name = ModuleName.TWITCH;
@@ -23,13 +25,8 @@ export class TwitchModule implements IModule {
 
   constructor() {
     const dependencyProvider = DependencyProvider.getInstance();
-    const config = Config.getInstance();
 
     dependencyProvider.register([
-      {
-        key: TWITCH_CLIENT,
-        factory: () => TwitchClientFactory.get(config),
-      },
       {
         key: USER_SERVICE,
         class: UserService,
@@ -45,6 +42,14 @@ export class TwitchModule implements IModule {
       {
         key: TWITCH_SERVICE,
         class: TwitchService,
+      },
+      {
+        key: TWITCH_AUTH_SERVICE,
+        class: TwitchAuthService,
+      },
+      {
+        key: TWITCH_CONTROLLER,
+        class: TwitchController,
       },
     ]);
 

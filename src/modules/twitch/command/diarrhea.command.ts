@@ -10,6 +10,6 @@ export class DiarrheaCommand extends Command {
     chatCommand: ChatCommand,
     twitchContext: TwitchContext,
   ): Promise<void> {
-    await this._twitchClient.say(twitchContext.room.channel, 'shit shit shit');
+    await this.twitchClient.say(twitchContext.room.channel, 'shit shit shit');
   }
 }

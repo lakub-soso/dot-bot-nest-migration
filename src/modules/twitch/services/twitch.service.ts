@@ -10,24 +10,31 @@ import {
 import { ChatMessage } from '../value-objects/chat-message';
 import { TwitchContext } from '../value-objects/twitch-context';
 import { DependencyProvider } from '../../../core/dependency/dependency-provider';
-import { TWITCH_CLIENT } from '../const/twitch-client.key';
 import { isChattable } from '../interfaces/chattable.interface';
+import config from '../../../config/config';
+import { TwitchClientFactory } from '../factory/twitch-client.factory';
+import open from 'open';
 
 export const TWITCH_SERVICE = 'twitch-service';
 
 export interface ITwitchService {
   initialize(): Promise<boolean>;
+
+  getClient(): TwitchClient;
 }
 
 export class TwitchService implements ITwitchService {
-  private readonly twitchClient: TwitchClient;
+  private _twitchClient: TwitchClient;
   private readonly commandProvider: ICommandProvider;
 
   constructor() {
     const dependencyProvider = DependencyProvider.getInstance();
 
-    this.twitchClient = dependencyProvider.get(TWITCH_CLIENT);
     this.commandProvider = dependencyProvider.get(COMMAND_PROVIDER);
+  }
+
+  getClient(): TwitchClient {
+    return this._twitchClient;
   }
 
   async initialize(): Promise<boolean> {
@@ -58,22 +65,40 @@ export class TwitchService implements ITwitchService {
       }
     } catch (exception: unknown) {
       if (exception instanceof Object && isChattable(exception)) {
-        await this.twitchClient.say(twitchContext.room.channel, exception.chatMessage);
+        await this._twitchClient.say(
+          twitchContext.room.channel,
+          exception.chatMessage,
+        );
       }
 
       if (exception instanceof TwitchException) {
         this.catchException(exception);
       } else {
+        console.error(exception);
         throw exception;
       }
     }
   }
 
+  private async handleDisconnect(
+    reason: string
+  ): Promise<void> {
+    console.warn(`Disconnected from Twitch - '${reason}', reconnecting...`);
+  }
+
   private async initializeTwitchClient(): Promise<boolean> {
     try {
-      await this.twitchClient.connect();
+      this._twitchClient = TwitchClientFactory.get(config);
 
-      this.twitchClient.on(
+      const clientId = 'g5oaqi1qanq6jy98oklswt68piloix';
+      const redirectUri = 'http://localhost:5000';
+      const scopes = ['channel:bot'].join(' ');
+
+      await open(`https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes}`);
+
+      await this._twitchClient.connect();
+
+      this._twitchClient.on(
         TwitchEvent.CHAT_MESSAGE,
         (
           /* eslint-disable */

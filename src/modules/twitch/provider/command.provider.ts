@@ -15,6 +15,7 @@ import {
 import { CommandNotFoundTwitchException } from '../exception/command-not-found.twitch-exception';
 import { LoveCommand } from '../command/love.command';
 import { CommandInitException } from '../exception/command-init.exception';
+import { IInitializable } from '../../../core/common/interface/initializable.interface';
 
 export const COMMAND_PROVIDER = 'command-provider';
 
@@ -37,10 +38,10 @@ const COMMANDS: { new (...args: never[]): Command }[] = [
   LoveCommand,
 ];
 
-export class CommandProvider implements ICommandProvider {
+export class CommandProvider implements ICommandProvider, IInitializable {
   private commandHashMap: Record<string, Command> = {};
 
-  constructor() {
+  async initialize(): Promise<boolean> {
     for (const Command of COMMANDS) {
       const instance = new Command();
 
@@ -54,6 +55,8 @@ export class CommandProvider implements ICommandProvider {
         this.commandHashMap[alias] = instance;
       }
     }
+
+    return true;
   }
 
   getBy(token: string): Command {

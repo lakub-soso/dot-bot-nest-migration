@@ -84,7 +84,7 @@ export class PPCommand extends Command {
       }
     }
 
-    await this._twitchClient.say(
+    await this.twitchClient.say(
       twitchContext.room.channel,
       `@${twitchContext.user.name}, ${response?.content ?? DEFAULT_RESPONSE}`,
     );
@@ -103,7 +103,7 @@ export class PPCommand extends Command {
     const response = PPResponse.create(contentArgs.join(' '), false);
     await this._ppResponseRepository.save(response);
 
-    await this._twitchClient.say(
+    await this.twitchClient.say(
       twitchContext.room.channel,
       `@${twitchContext.user.name}, pp response suggested (awaiting approval)`,
     );
