@@ -1,1 +1,0 @@
-export const TWITCH_SCHEMA = 'twitch';
