@@ -27,11 +27,29 @@
             "node"
         ],
         "paths": {
-            "@core/*": [
-                "./apps/core/*"
+            "@app/config": [
+                "libs/config/src"
             ],
-            "@common/*": [
-                "./common/*"
+            "@app/config/*": [
+                "libs/config/src/*"
+            ],
+            "@app/database": [
+                "libs/database/src"
+            ],
+            "@app/database/*": [
+                "libs/database/src/*"
+            ],
+            "@app/redis": [
+                "libs/redis/src"
+            ],
+            "@app/redis/*": [
+                "libs/redis/src/*"
+            ],
+            "@app/common": [
+                "libs/common/src"
+            ],
+            "@app/common/*": [
+                "libs/common/src/*"
             ]
         }
     }
