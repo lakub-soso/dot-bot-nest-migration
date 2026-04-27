@@ -1,4 +1,5 @@
-export interface IDatabaseConfig {
+export interface IDatabaseConfig
+{
     host: string;
     port: number;
     user: string;

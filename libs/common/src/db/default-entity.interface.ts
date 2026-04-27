@@ -1,4 +1,5 @@
-export interface IDefaultEntity {
+export interface IDefaultEntity
+{
     id: number;
     createdAt: Date;
     updatedAt: Date;

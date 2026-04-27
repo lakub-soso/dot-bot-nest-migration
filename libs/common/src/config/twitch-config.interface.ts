@@ -1,4 +1,5 @@
-export interface ITwitchConfig {
+export interface ITwitchConfig
+{
     username: string;
     channels: string[];
     oauthClientId: string;
